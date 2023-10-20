@@ -9,8 +9,8 @@ Il progetto contiene:
 * jwt   - semplice applicazione per eseguire una rapido test di autenticazione
 
 All'inizio del corso ad ogni partecipante verranno assegnati i nomi macchina da utilizzare per le applicazioni e i loro certificati. es:
-* satosa-cp1.aai-test.garr.it per il proxy Satosa
-* gitlab-cp1.aai-test.garr.it per l'RP Gitlab
+* satosa-cp1.labwsgarr23.aai-test.garr.it per il proxy Satosa
+* gitlab-cp1.labwsgarr23.aai-test.garr.it per l'RP Gitlab
 
 ## Compose
 ```mermaid
@@ -43,18 +43,18 @@ Entrare nella directory `./nginx/certs/` e salvare i certificati per i virtual h
 ## Preparazione del file host
 * Modificare il file di host `/etc/hosts` ed aggiungere gli host per il corso all'indirizzo di localhost, es:
 ```
-127.0.1.1       localhost satosa-cp1.aai-test.garr.it gitlab-cp1.aai-test.garr.it
+127.0.1.1       localhost satosa-cp1.labwsgarr23.aai-test.garr.it gitlab-cp1.labwsgarr23.aai-test.garr.it
 ```
 
 ## Compose e verifica
 * Modificare nel file `docker-compose.yml` le voci descrittive servizio;
 * Eseguire l'infrastruttura di docker con il comando `sudo docker compose up`;
 * Verificare l'attività dei servizi e i dati registrati dei metadata dai seguenti indirizzi:
-* * https://satosa-cp1.aai-test.garr.it/Saml2/metadata (metadata SP IDEM)
-* * https://satosa-cp1.aai-test.garr.it/spidSaml2/metadata (metadata SP SPID)
-* * https://satosa-cp1.aai-test.garr.it/cieSaml2/metadata  (metadata SP CIE)
-* * https://satosa-cp1.aai-test.garr.it/Saml2IDP/metadata (metadata dell'IDP per registrare i propri SP)
-* * https://satosa-cp1.aai-test.garr.it/.well-known/openid-configuration (metadata OIDC)
+* * https://satosa-cp1.labwsgarr23.aai-test.garr.it/Saml2/metadata (metadata SP IDEM)
+* * https://satosa-cp1.labwsgarr23.aai-test.garr.it/spidSaml2/metadata (metadata SP SPID)
+* * https://satosa-cp1.labwsgarr23.aai-test.garr.it/cieSaml2/metadata  (metadata SP CIE)
+* * https://satosa-cp1.labwsgarr23.aai-test.garr.it/Saml2IDP/metadata (metadata dell'IDP per registrare i propri SP)
+* * https://satosa-cp1.labwsgarr23.aai-test.garr.it/.well-known/openid-configuration (metadata OIDC)
 * * https://wiki.idem.it (indirizzo wiki.js)
 
 *Ricordarsi di modificare il dominio `idem.it` con il proprio dominio*
@@ -68,7 +68,7 @@ Entrare nella directory `./nginx/certs/` e salvare i certificati per i virtual h
 * Far confermare la registrazione dai docenti presenti in sala
 
 ## Eseguire un accesso su gitlab
-* Collegarsi al proprio host GitLab es: `gitlab-cp1.aai-test.garr.it`
+* Collegarsi al proprio host GitLab es: `gitlab-cp1.labwsgarr23.aai-test.garr.it`
 * Cliccare sul bottone `WSGARR23` nella sezione `sign in with`
 * Selezionare `IDEM` nella discovery page
 * Autenticarsi con le credenziali:

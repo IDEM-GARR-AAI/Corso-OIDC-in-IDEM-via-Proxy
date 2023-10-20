@@ -6,7 +6,7 @@ LOCALITY_NAME=Roma
 ORGANIZATION_IDENTIFIER=PA:idem_rm
 ORGANIZATION_NAME=CTS-IDEM
 SERIAL_NUMBER=1
-URI=https://satosa-cp1.aai-test.garr.it
+URI=https://satosa-cp1.labwsgarr23.aai-test.garr.it
 SPID_SECTOR=public
 
 openssl_conf=$(mktemp)

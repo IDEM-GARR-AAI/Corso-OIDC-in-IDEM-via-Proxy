@@ -26,14 +26,14 @@ services:
     environment:
       - SATOSA_BY_DOCKER=1
 
-      - SATOSA_BASE=http://satosa-cp1.aai-test.garr.it
-      - SATOSA_CONTACT_PERSON_EMAIL_ADDRESS=email@satosa-cp1.aai-test.garr.it
+      - SATOSA_BASE=http://satosa-cp1.labwsgarr23.aai-test.garr.it
+      - SATOSA_CONTACT_PERSON_EMAIL_ADDRESS=email@satosa-cp1.labwsgarr23.aai-test.garr.it
       - SATOSA_CONTACT_PERSON_FISCALCODE=10125211002
       - SATOSA_CONTACT_PERSON_GIVEN_NAME=AAI-TEST
       - SATOSA_CONTACT_PERSON_TELEPHONE_NUMBER=+390612345678
       - SATOSA_CONTACT_PERSON_IPA_CODE=aai_rm
       - SATOSA_CONTACT_PERSON_MUNICIPALITY=H5012662488311
-      - SATOSA_DISCO_SRV=https://satosa-cp1.aai-test.garr.it/static/disco.html
+      - SATOSA_DISCO_SRV=https://satosa-cp1.labwsgarr23.aai-test.garr.it/static/disco.html
       - SATOSA_ENCRYPTION_KEY=Password
       - MONGODB_PASSWORD=Password
       - MONGODB_USERNAME=satosa
@@ -41,22 +41,22 @@ services:
       - SATOSA_ORGANIZATION_DISPLAY_NAME_IT=AAI Test
       - SATOSA_ORGANIZATION_NAME_EN=Lab OIDC SP
       - SATOSA_ORGANIZATION_NAME_IT=Lab OIDC SP
-      - SATOSA_ORGANIZATION_URL_EN=https://satosa-cp1.aai-test.garr.it
-      - SATOSA_ORGANIZATION_URL_IT=https://satosa-cp1.aai-test.garr.it
+      - SATOSA_ORGANIZATION_URL_EN=https://satosa-cp1.labwsgarr23.aai-test.garr.it
+      - SATOSA_ORGANIZATION_URL_IT=https://satosa-cp1.labwsgarr23.aai-test.garr.it
       - SATOSA_SALT=68c12a161ea426afc44b28ad41598f92c5fbafd445ab4d0ea3ce43885e9a02b1
       - SATOSA_STATE_ENCRYPTION_KEY=Password
       - SATOSA_UI_DESCRIPTION_EN=AAI Test Identity proxy
       - SATOSA_UI_DESCRIPTION_IT=AAI Test Identity proxy
       - SATOSA_UI_DISPLAY_NAME_EN=Lab OIDC SP
       - SATOSA_UI_DISPLAY_NAME_IT=Lab OIDC SP
-      - SATOSA_UI_INFORMATION_URL_EN=https://satosa-cp1.aai-test.garr.it
-      - SATOSA_UI_INFORMATION_URL_IT=https://satosa-cp1.aai-test.garr.it
+      - SATOSA_UI_INFORMATION_URL_EN=https://satosa-cp1.labwsgarr23.aai-test.garr.it
+      - SATOSA_UI_INFORMATION_URL_IT=https://satosa-cp1.labwsgarr23.aai-test.garr.it
       - SATOSA_UI_LOGO_HEIGHT=60
       - SATOSA_UI_LOGO_URL=https://www.idem.garr.it/images/logoIDEM_colore.svg
       - SATOSA_UI_LOGO_WIDTH=80
-      - SATOSA_UI_PRIVACY_URL_EN=https://satosa-cp1.aai-test.garr.it
-      - SATOSA_UI_PRIVACY_URL_IT=https://satosa-cp1.aai-test.garr.it
-      - SATOSA_UNKNOW_ERROR_REDIRECT_PAGE=https://satosa-cp1.aai-test.garr.it/static/error_page.html
+      - SATOSA_UI_PRIVACY_URL_EN=https://satosa-cp1.labwsgarr23.aai-test.garr.it
+      - SATOSA_UI_PRIVACY_URL_IT=https://satosa-cp1.labwsgarr23.aai-test.garr.it
+      - SATOSA_UNKNOW_ERROR_REDIRECT_PAGE=https://satosa-cp1.labwsgarr23.aai-test.garr.it/static/error_page.html
       - SATOSA_USER_ID_HASH_SALT=68c12a161ea426afc44b28ad41598f92c5fbafd445ab4d0ea3ce43885e9a02b1
     expose:
       - 10000
@@ -86,15 +86,15 @@ services:
     networks:
       satosa:
         aliases:
-          - satosa-cp1.aai-test.garr.it
+          - satosa-cp1.labwsgarr23.aai-test.garr.it
 
   gitlab:
     image: 'gitlab/gitlab-ee:latest'
     restart: always
-    hostname: 'gitlab-cp1.aai-test.garr.it'
+    hostname: 'gitlab-cp1.labwsgarr23.aai-test.garr.it'
     environment:
       GITLAB_OMNIBUS_CONFIG: |
-        external_url 'https://gitlab-cp1.aai-test.garr.it:443'
+        external_url 'https://gitlab-cp1.labwsgarr23.aai-test.garr.it:443'
         # Add any other gitlab.rb configuration here, each on its own line
         gitlab_rails['omniauth_allow_single_sign_on'] = ['openid_connect']
         gitlab_rails['omniauth_block_auto_created_users'] = false
@@ -107,7 +107,7 @@ services:
               name: "openid_connect",
               scope: ["openid","profile","email"],
               response_type: "code",
-              issuer: "https://satosa-cp1.aai-test.garr.it",
+              issuer: "https://satosa-cp1.labwsgarr23.aai-test.garr.it",
               discovery: true,
               client_auth_method: "query",
               uid_field: "sub",
@@ -116,7 +116,7 @@ services:
               client_options: {
                 identifier: "gitlab",
                 secret: "57af39b70d0108f630e52f72f7a3bd37ba4e11678ad3e7434d9816b9",
-                redirect_uri: "https://gitlab-cp1.aai-test.garr.it/users/auth/openid_connect/callback"
+                redirect_uri: "https://gitlab-cp1.labwsgarr23.aai-test.garr.it/users/auth/openid_connect/callback"
               }
             }
           }
@@ -131,6 +131,6 @@ services:
     networks:
       satosa:
         aliases:
-          - gitlab-cp1.aai-test.garr.it
+          - gitlab-cp1.labwsgarr23.aai-test.garr.it
 networks:
   satosa:

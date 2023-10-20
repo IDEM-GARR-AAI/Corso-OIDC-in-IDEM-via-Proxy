@@ -152,7 +152,7 @@
           "client_secret_post"
         ]
       },
-      "issuer": "https://satosa-cp1.aai-test.garr.it",
+      "issuer": "https://satosa-cp1.labwsgarr23.aai-test.garr.it",
       "client_id": "jwt_test",
       "client_salt": "6flfsj0Z",
       "client_id_issued_at": 1628496105,
