@@ -15,8 +15,8 @@ All'inizio del corso ad ogni partecipante verranno assegnati i nomi macchina da 
 ## Compose
 ```mermaid
 flowchart TD
-    NGINX[nginx] --> SATOSA(Satosa Proxy)
-    NGINX --> GITLAB(GitLab Server)
+    NGINX[nginx] <--> SATOSA(Satosa Proxy)
+    NGINX <--> GITLAB(GitLab Server)
     SATOSA --> MONGO[MONGODB]
 ```
 Il docker compose avvierà un server NGINX che farà da proxy verso i container di Satosa e Gitlab.
