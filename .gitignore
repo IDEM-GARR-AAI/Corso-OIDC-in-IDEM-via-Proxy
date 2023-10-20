@@ -1,0 +1,4 @@
+./nginx/certs/*
+./satosa/pki/cert.pem
+./satosa/pki/privkey.pem
+./jwt/env

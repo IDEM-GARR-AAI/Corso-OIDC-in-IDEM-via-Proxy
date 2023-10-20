@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<md:EntityDescriptor xmlns="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:shibmd="urn:mace:shibboleth:metadata:1.0" xmlns:mdui="urn:oasis:names:tc:SAML:metadata:ui" xmlns:mdattr="urn:oasis:names:tc:SAML:metadata:attribute" xmlns:mdrpi="urn:oasis:names:tc:SAML:metadata:rpi" xmlns:idpdisc="urn:oasis:names:tc:SAML:profiles:SSO:idp-discovery-protocol" xmlns:xenc="http://www.w3.org/2001/04/xmlenc#" xmlns:xrd="http://docs.oasis-open.org/ns/xri/xrd-1.0" xmlns:init="urn:oasis:names:tc:SAML:profiles:SSO:request-init" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:alg="urn:oasis:names:tc:SAML:metadata:algsupport" xmlns:remd="http://refeds.org/metadata" xmlns:hoksso="urn:oasis:names:tc:SAML:2.0:profiles:holder-of-key:SSO:browser" entityID="https://idp.aai-test.garr.it/idp/shibboleth">
+ <md:Extensions>
+  <mdrpi:RegistrationInfo registrationAuthority="http://www.idem.garr.it/" registrationInstant="2021-10-01T08:35:00Z">
+   <mdrpi:RegistrationPolicy xml:lang="en">https://www.idem.garr.it/raw/idem-mrps-1.0.md</mdrpi:RegistrationPolicy>
+  </mdrpi:RegistrationInfo>
+ </md:Extensions>
+ <md:IDPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+  <md:Extensions>
+<shibmd:Scope regexp="false">aai-test.garr.it</shibmd:Scope>
+<mdui:UIInfo>
+ <mdui:DisplayName xml:lang="en">GARR IDP AAI Test</mdui:DisplayName>
+ <mdui:DisplayName xml:lang="it">GARR IDP AAI Test</mdui:DisplayName>
+ <mdui:Description xml:lang="en">Identity Provider based on Shibboleth v4.1.4 for testing use</mdui:Description>
+ <mdui:Description xml:lang="it">Identity Provider di test basato su Shibboleth v4.1.4</mdui:Description>
+</mdui:UIInfo>
+</md:Extensions>
+  <md:KeyDescriptor use="signing">
+   <ds:KeyInfo>
+    <ds:X509Data>
+     <ds:X509Certificate>
+MIIEPTCCAqWgAwIBAgIVAPXfkjVweWhqZESdCP5354BGAV8MMA0GCSqGSIb3DQEB
+CwUAMB8xHTAbBgNVBAMMFGlkcC5hYWktdGVzdC5nYXJyLml0MB4XDTIxMDkyMDA3
+MzIwN1oXDTQxMDkyMDA3MzIwN1owHzEdMBsGA1UEAwwUaWRwLmFhaS10ZXN0Lmdh
+cnIuaXQwggGiMA0GCSqGSIb3DQEBAQUAA4IBjwAwggGKAoIBgQCzkBMaQ7lFQZVR
+NmrIl2zBTiEi+k8YIk+9h1jmvMC8kUtGfTj0WK4updV+LQy1cMegsMbKQiVfPA+6
+j3QyPAPIr+o25bl2DnS1UaLuxX9WKRqCra7EBZs4TIQgilalhEwF0+oGbftgv4bz
+SMoz3oQeFTHh6grrGa8df4xjqAuxGDGZ6LRjcNbNTDt3MpL+JRrZhub2xLU2mSyV
+pegSTAI67FrcalqXNudleN5nLtFqlPhldrQP+sIPMhB1nxl5moUvXlvDAsfgsJ1M
+pyjviF7rEgcolQw4RJYk5/GpiYP3DdE5OH6jYsaID4xqDihnBCe71y9dCi9eAmwR
+YAXHLgIf7BYNn9aUNQiI3+aMJoNd1EBzUl7iVdA9aErkvzBjziyhgTHih+dXP8vL
+VxDxLAZS4LatPjpvpZzo99+zHaIkGtaAxPwZh10ekmQg4UMuDFBASKpyx2tEY0p5
+pCqqq8KZ5D2VcB4vSoWqZvFR0jrkj6yVg0UpwnAlETYFU3L+PpUCAwEAAaNwMG4w
+HQYDVR0OBBYEFBRmvLtz5po6GgiMjVY5MVgs0i6dME0GA1UdEQRGMESCFGlkcC5h
+YWktdGVzdC5nYXJyLml0hixodHRwczovL2lkcC5hYWktdGVzdC5nYXJyLml0IC9p
+ZHAvc2hpYmJvbGV0aDANBgkqhkiG9w0BAQsFAAOCAYEAoLyfKP7Hi5lXC1tvSPyR
+Pm/wu66fjI8U7lVlk/m9KPNzTsrrEAQaoEQNoDz1Tydxd6JSaVhsg/umWwjdJzq8
+aEO+/9lvzlGKOOlfmH3ndGliDlzdaCC8zy3Wk+B9OwWXMUQ8Ji6CPVBgYwoDPUSj
+Bj2Zd+m0LmP2oxFXsjW3AiCLO0m0rdlsCyFj4f4VKwvutw3zFz40reFj2bZ8EDfr
+fMj84effCpPnVNlw09A2fseXNOd75A9N/1rWRph0KMuej4eBtzTRrt4I8N0WJJNW
+lZcMbAqJmx+e74gyAJeuINLymY62aaBMSc+WK6ZQXzbVDtgeeQKeiHdPK6yltQmy
+GRGyQHkBEFFJ7IYNQcX3tnVP05sJDEkb+S4RfRIBsqY5l0NXyws/FHBFPRYWj+hG
+wQotjwUVjWihajA4dZXVSQ2D9QDuA1MrgIYNHL6mIYctvJCaIrB+6526J/tLY0lp
+ssY6ySvfEWpUHbV9qeiSF3CAsoWlA/qp78waDP0KLMGq
+</ds:X509Certificate>
+    </ds:X509Data>
+   </ds:KeyInfo>
+  </md:KeyDescriptor>
+  <md:KeyDescriptor use="signing">
+   <ds:KeyInfo>
+    <ds:X509Data>
+     <ds:X509Certificate>
+MIIEPDCCAqSgAwIBAgIURYsM8+01/EhIz8Kz5b7m1h7oNgMwDQYJKoZIhvcNAQEL
+BQAwHzEdMBsGA1UEAwwUaWRwLmFhaS10ZXN0LmdhcnIuaXQwHhcNMjEwOTIwMDcz
+MjA1WhcNNDEwOTIwMDczMjA1WjAfMR0wGwYDVQQDDBRpZHAuYWFpLXRlc3QuZ2Fy
+ci5pdDCCAaIwDQYJKoZIhvcNAQEBBQADggGPADCCAYoCggGBAO8oi8XcdlYL00rb
+uIqm6MF2rdrl4soCXFDRyYX+KCc8DtPfThZM9rzc0meWJ2xqGiTkulIKmDNy2QI1
+9MPbqDv02/YqUSo1izWk7lTv3Dd1wO/YiN2M9Mq8DccfC8lNMKvtclkodCvUSupT
+mIZ9jlaLHOetXwcfbInu4n5mNpr55k3nLFbF6LSP1AlX/QvFSTdGMFO6L2B+/kv7
+mtgD/S2LO6NadK9VRGL/gtXuQiPzQuumBQ73MzxtzJI6J3+Ez3pAGqwK4C7Jc/St
+Xd5XD95H7kbb69I1ef8xs+5TPKQcGgaNtO0fx8gO9zN/GBi2vd4PSBPQv1p3eRah
+KFa9DU6EUB6QM7r/b3b7yXTR85uqFTWGco8YlVhC01ggAMGTINNt5kJeTIAY/mIC
+GJOZ7T1ONESfqcMwOirIGppnXiQYrF0TgZugZj6UL6OvADiSegmJ3yYUv8hhFUsC
+RiM1L7hLDTIG2QGZDHezEtgM4GyCD/xequVt6EudHVbDaxn9rwIDAQABo3AwbjAd
+BgNVHQ4EFgQU4KvwMlUnDm95Ffx8GqGB7ltytecwTQYDVR0RBEYwRIIUaWRwLmFh
+aS10ZXN0LmdhcnIuaXSGLGh0dHBzOi8vaWRwLmFhaS10ZXN0LmdhcnIuaXQgL2lk
+cC9zaGliYm9sZXRoMA0GCSqGSIb3DQEBCwUAA4IBgQCr694BJ1ef5FR+rH3sV5jJ
+o56IV8ciOo9dgO0iVJRLKeyB8R15mLTP9J2ynIJLKHYgXCk6VYlU2qeDWCFCOdLg
+oIAXMx3lSwMkqWl7QvVAze+L7pCR83UkR4a0rsxOII5OT5+l5Yi8YZE4IQzE2sde
+v+szkt3vv1rV8aJ0k1hpKSuJHw13npcNTGF6KPERgttQHt+wdSCyx/hrzDlPeCAz
+PpP5Nyq6+xXE44txrUnR4ie26nRAj5aani+2O9kpeqJt0SoRXrPzk843UGvn5b/U
+Wo91BNDbg2zILIUff3rVS9eljZPY7l+K2YaHZI74LojhTmSY5vNOS/3RxqwHmVze
+0aNbJ3cSu3EblbvwNdcj2438w/cgW+qoLAcXmq8ISyI4jfFrtB/CKX+x6kOormGO
+yS/27IDp4ysxkFrcKgPmcihtl6zZjH3AzyiQCNvB3c8d6S71OID0gR1pUSSW5HnJ
+juEzSzJfd7MEH8RpNl1iO2/8PO0CPev11VhrzkilMU0=
+</ds:X509Certificate>
+    </ds:X509Data>
+   </ds:KeyInfo>
+  </md:KeyDescriptor>
+  <md:KeyDescriptor use="encryption">
+   <ds:KeyInfo>
+    <ds:X509Data>
+     <ds:X509Certificate>
+MIIEPTCCAqWgAwIBAgIVAPIJdopMtV6jb2hsqDQVg6cRXIanMA0GCSqGSIb3DQEB
+CwUAMB8xHTAbBgNVBAMMFGlkcC5hYWktdGVzdC5nYXJyLml0MB4XDTIxMDkyMDA3
+MzIwNVoXDTQxMDkyMDA3MzIwNVowHzEdMBsGA1UEAwwUaWRwLmFhaS10ZXN0Lmdh
+cnIuaXQwggGiMA0GCSqGSIb3DQEBAQUAA4IBjwAwggGKAoIBgQCwCo10qigfsL5c
+V6Z3q5Yqz1fIymy3hmYW5gErKL9t6EF0+PjZFZWzwoR3IK1VgJPUhVX99ZHXRTh+
+FwitpRyfyk+88DvB2i2jckKHfe4rGm3pEaKMle2E5v5Zw5RH0G1Z0/PKZkMat1zA
+rDzlvcf7h6pvqh+ZFIsywhxc4HnQleVNOU61enRYzi1RY77PDczJK1vqlPpTHbfa
+nAdoM51vZvORoB/K+QhTC5tiZnq8xR8W791AFrB+skSW2QJ6fgM6pWMVFba5FYc7
+4lpw4VEoGoKbC9/uE1+rwFioP9/YvaQDhX4j4qdPU2nCn4Kspty433UOZI46e4Q+
+aTMf6oeAO4r4n63yqjONeuhlSSVlWsPEhvfMrNCxq9Yi4aV22bypROtvRGfEI/FM
+DqkUCRyakgDps+zpKn4AUY8fs7+f08/stevqfVB+QH8+Ko7jtBka+Kwyj1QdAlS1
+GE/8bLfy4CpkU0SyCVGIl4dPOcbo/D3qqIYulCiYP4HYbxrI9PsCAwEAAaNwMG4w
+HQYDVR0OBBYEFCbUxxJhLh4+4dgietHTQ440zpZBME0GA1UdEQRGMESCFGlkcC5h
+YWktdGVzdC5nYXJyLml0hixodHRwczovL2lkcC5hYWktdGVzdC5nYXJyLml0IC9p
+ZHAvc2hpYmJvbGV0aDANBgkqhkiG9w0BAQsFAAOCAYEAJBlLiAgiWygaZIJxz1fc
++fQifEg2Y10ruYN2vJhiJoTmbPY3BbVhwvOdngg3Yu4VH3H3VlIhs5EGgj6HHbGc
+/r+1IVVJ4pnVZcPBaYLjBwgBW8Ydi3+/yECrDavov6FT2voG/iiExfrEqMtx/9oD
+o6xb7d7zCJCmMgQfDNDCBdLdCWB0250KhbXv+JlFNI9oCJQSYBjFKFFqzQxqTubp
+uKPyiMgf43A4yRYXYetAII5CII5URNDIvWOF7T2r7DzqPs1+wmfPChQ8DKxypVLD
++SMr4KcUb0NYYsQZgraMIvJcZiPESZIUhqj5OH087wOZTN/b69ZEdPPWJ8WHjv3W
+13sAas9fl27y2PYIVhUWMcD16STGhlxLKRTZcDwno6lSefi3PTvb4WDm5Y7lffYU
+RoK7sXsjVp8VQNos5e5Eahoshwp0C5c8UBhmgfUYZnZwvrc9O6UsqUanflYolRzv
+6Lumq+QdBgw7Z5xLBztiRi/FxHF1ThLIsihO94UJyBK3
+</ds:X509Certificate>
+    </ds:X509Data>
+   </ds:KeyInfo>
+  </md:KeyDescriptor>
+  <md:ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://idp.aai-test.garr.it/idp/profile/SAML2/SOAP/ArtifactResolution" index="1"/>
+  <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://idp.aai-test.garr.it/idp/profile/SAML2/Redirect/SLO"/>
+  <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://idp.aai-test.garr.it/idp/profile/SAML2/POST/SLO"/>
+  <md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://idp.aai-test.garr.it/idp/profile/SAML2/SOAP/SLO"/>
+  <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</md:NameIDFormat>
+  <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:persistent</md:NameIDFormat>
+  <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://idp.aai-test.garr.it/idp/profile/SAML2/POST/SSO"/>
+  <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://idp.aai-test.garr.it/idp/profile/SAML2/Redirect/SSO"/>
+  <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST-SimpleSign" Location="https://idp.aai-test.garr.it/idp/profile/SAML2/POST-SimpleSign/SSO"/>
+ </md:IDPSSODescriptor>
+ <md:Organization>
+  <md:OrganizationName xml:lang="it">Consortium GARR</md:OrganizationName>
+  <md:OrganizationName xml:lang="en">Consortium GARR</md:OrganizationName>
+  <md:OrganizationDisplayName xml:lang="en">Consortium GARR</md:OrganizationDisplayName>
+  <md:OrganizationURL xml:lang="it">https://www.garr.it/it</md:OrganizationURL>
+  <md:OrganizationURL xml:lang="en">https://www.garr.it/en</md:OrganizationURL>
+ </md:Organization>
+ <md:ContactPerson contactType="technical">
+  <md:EmailAddress>mailto:idem-help@garr.it</md:EmailAddress>
+ </md:ContactPerson>
+</md:EntityDescriptor>

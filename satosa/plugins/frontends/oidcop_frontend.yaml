@@ -1,0 +1,204 @@
+module: satosa_oidcop.idpy_oidcop.OidcOpFrontend
+name: OIDC
+config:
+  domain: localhost
+  server_name: localhost
+  base_url: <base_url>
+  storage:
+    class: satosa_oidcop.core.storage.mongo.Mongodb
+    kwargs:
+      url: mongodb://satosa-mongo:27017/oidcop
+      connection_params:
+        username: satosa
+        password: Password
+        connectTimeoutMS: 5000
+        socketTimeoutMS: 5000
+        serverSelectionTimeoutMS: 5000
+    db_name: oidcop
+    collections:
+      session: session
+      client: client
+  default_target_backend: spidSaml2
+  salt_size: 8
+  op:
+    server_info:
+      add_on:
+        pkce:
+          function: idpyoidc.server.oauth2.add_on.pkce.add_support
+          kwargs:
+            code_challenge_method: S256 S384 S512
+            essential: false
+      authentication:
+        user:
+          acr: urn:oasis:names:tc:SAML:2.0:ac:classes:InternetProtocolPassword
+          class: satosa_oidcop.core.user_authn.SatosaAuthnMethod
+      authz:
+        class: idpyoidc.server.authz.AuthzHandling
+        kwargs:
+          grant_config:
+            expires_in: 43200
+            usage_rules:
+              access_token: {}
+              authorization_code:
+                max_usage: 1
+                supports_minting:
+                  - access_token
+                  - refresh_token
+                  - id_token
+              refresh_token:
+                supports_minting:
+                  - access_token
+                  - refresh_token
+      capabilities:
+        grant_types_supported:
+          - authorization_code
+          - urn:ietf:params:oauth:grant-type:jwt-bearer
+          - refresh_token
+          - implicit
+        subject_types_supported:
+          - public
+          - pairwise
+        scopes_supported:
+          - openid
+          - profile
+          - offline_access
+          - email
+          - urn:oid:1.2.840.113549.1.9.1.1
+        claims_supported:
+          - sub
+          - given_name
+          - birthdate
+          - email
+          - mail
+          - urn:oid:1.2.840.113549.1.9.1.1
+      endpoint:
+        provider_info:
+          class: idpyoidc.server.oidc.provider_config.ProviderConfiguration
+          kwargs:
+            client_authn_method: null
+          path: .well-known/openid-configuration
+        authorization:
+          class: idpyoidc.server.oidc.authorization.Authorization
+          kwargs:
+            claims_parameter_supported: true
+            client_authn_method: null
+            request_object_encryption_alg_values_supported:
+              - RSA-OAEP
+              - RSA-OAEP-256
+            request_parameter_supported: true
+            request_uri_parameter_supported: true
+            response_modes_supported:
+              - query
+              - fragment
+              - form_post
+            response_types_supported:
+              - code
+          path: OIDC/authorization
+        token:
+          class: idpyoidc.server.oidc.token.Token
+          kwargs:
+            client_authn_method:
+              - client_secret_post
+              - client_secret_basic
+              - client_secret_jwt
+              - private_key_jwt
+          path: OIDC/token
+        userinfo:
+          class: idpyoidc.server.oidc.userinfo.UserInfo
+          kwargs:
+            claim_types_supported:
+              - normal
+              - aggregated
+              - distributed
+            userinfo_encryption_alg_values_supported:
+              - RSA-OAEP
+              - RSA-OAEP-256
+            userinfo_signing_alg_values_supported:
+              - RS256
+              - RS512
+              - ES256
+              - ES512
+          path: OIDC/userinfo
+        introspection:
+          class: idpyoidc.server.oauth2.introspection.Introspection
+          kwargs:
+            client_authn_method:
+              - client_secret_post
+              - client_secret_basic
+              - client_secret_jwt
+              - private_key_jwt
+            release:
+              - username
+          path: OIDC/introspection
+        registration_read:
+          class: idpyoidc.server.oidc.read_registration.RegistrationRead
+          kwargs:
+            client_authn_method:
+              - bearer_header
+          path: OIDC/registration_read
+      httpc_params:
+        verify: false
+      issuer: <base_url>
+      keys:
+        key_defs:
+          - type: RSA
+            use:
+              - sig
+          - crv: P-256
+            type: EC
+            use:
+              - sig
+        private_path: data/oidc_op/private/jwks.json
+        public_path: data/static/jwks.json
+        read_only: false
+        uri_path: OIDC/jwks.json
+      login_hint2acrs:
+        class: idpyoidc.server.login_hint.LoginHint2Acrs
+        kwargs:
+          scheme_map:
+            email:
+              - urn:oasis:names:tc:SAML:2.0:ac:classes:InternetProtocolPassword
+      session_params:
+        password: Password
+        salt: 68c12a161ea426afc44b28ad41598f92c5fbafd445ab4d0ea3ce43885e9a02b1
+        sub_func:
+          pairwise:
+            class: idpyoidc.server.session.manager.PairWiseID
+            kwargs:
+              salt: 68c12a161ea426afc44b28ad41598f92c5fbafd445ab4d0ea3ce43885e9a02b1
+          public:
+            class: idpyoidc.server.session.manager.PublicID
+            kwargs:
+              salt: CHANGE_ME_OR_LET_IT_BE_RANDOMIC
+      template_dir: templates
+      token_handler_args:
+        code:
+          kwargs:
+            lifetime: 600
+        id_token:
+          class: idpyoidc.server.token.id_token.IDToken
+          kwargs:
+            id_token_encryption_alg_values_supported:
+              - RSA-OAEP
+              - RSA-OAEP-256
+            id_token_encryption_enc_values_supported:
+              - A128CBC-HS256
+              - A192CBC-HS384
+              - A256CBC-HS512
+              - A128GCM
+              - A192GCM
+              - A256GCM
+            id_token_signing_alg_values_supported:
+              - RS256
+              - RS512
+              - ES256
+              - ES512
+        refresh:
+          kwargs:
+            lifetime: 86400
+        token:
+          class: idpyoidc.server.token.jwt_token.JWTToken
+          kwargs:
+            lifetime: 3600
+      userinfo:
+        class: satosa_oidcop.core.user_info.SatosaOidcUserInfo

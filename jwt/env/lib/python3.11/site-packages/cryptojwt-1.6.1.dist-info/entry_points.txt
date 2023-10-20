@@ -1,0 +1,5 @@
+[console_scripts]
+jwkconv=cryptojwt.tools.keyconv:main
+jwkgen=cryptojwt.tools.keygen:main
+jwtpeek=cryptojwt.tools.jwtpeek:main
+
