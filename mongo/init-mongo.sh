@@ -20,22 +20,8 @@ db.createUser(
     roles: [
         { role: "readWrite" , db: '$MONGO_INITDB_DATABASE'}
     ]
-  },
-  {
-    user: user,
-    pwd:  passwd,
-    roles: [
-        { role: "readWrite" , db: 'rocketchat'}
-    ]
   }
-  {
-    user: user,
-    pwd:  passwd,
-    roles: [
-        { role: "readWrite" , db: 'local'}
-    ]
-  }
-)
+) 
 
 // make client_id unique
 db.client.createIndex( { "client_id": 1 }, { unique: true } )
