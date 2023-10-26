@@ -105,24 +105,17 @@ services:
             icon: "",
             args: {
               name: "openid_connect",
+              issuer: "https://satosa-cp1.labwsgarr23.aai-test.garr.it",
+              discovery: true,
               scope: ["openid","profile","email"],
               response_type: "code",
-              response_mode: ":form_post",
-              issuer: "https://satosa-cp1.labwsgarr23.aai-test.garr.it",
-              discovery: false,
-              client_auth_method: "basic",
-              uid_field: "sub",
+              client_auth_method: "query",
               send_scope_to_token_endpoint: "false",
-              pkce: true,
+              pkce: true,   
               client_options: {
                 identifier: "gitlab",
                 secret: "57af39b70d0108f630e52f72f7a3bd37ba4e11678ad3e7434d9816b9",
                 redirect_uri: "https://gitlab-cp1.labwsgarr23.aai-test.garr.it/users/auth/openid_connect/callback",
-                host: "satosa-cp1.labwsgarr23.aai-test.garr.it",
-                authorization_endpoint: "/OIDC/authorization",
-                token_endpoint: "/OIDC/token",
-                userinfo_endpoint: "/OIDC/introspection",
-                jwks_uri: "/OIDC/jwks.json"
               }
             }
           }
