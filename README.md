@@ -18,14 +18,14 @@ nella federazione IDEM un istanza di [GitLAB](https://about.gitlab.com/) che aut
 * Verificare l’accesso all’applicazione OpenID Connect tramite un’Identity Provider SAML registrato nella federazione IDEMLAB
 
 ## Contenuto del repository
-| Path           | Contenuto |
-| -------------- | --------- |
-| README.md      | Le itruzioni che stai leggendo! |
-| docker-compose |  Il file con le istruzioni per avviare la struttura docker, incluso un container gitlab da utilizzare come RP |
-| satosa         | directory contenente configurazioni, certificati e matadata per il proxy Satosa |
-| nginx          | virtual host, certificati e file statici serviti dal webserver NGINX |
-| mongo          | file di inizializzazione del server MongoDB, nel file `./mongo/mongo.json` sono presenti le registrazioni per le applicazioni OIDC |
-| jwt            | semplice applicazione per eseguire una rapido test di autenticazione |
+| Path               | Contenuto |
+| ------------------ | --------- |
+| README.md          | Le itruzioni che stai leggendo! |
+| docker-compose.yml |  Il file con le istruzioni per avviare la struttura docker, incluso un container gitlab da utilizzare come RP |
+| satosa             | directory contenente configurazioni, certificati e matadata per il proxy Satosa |
+| nginx              | virtual host, certificati e file statici serviti dal webserver NGINX |
+| mongo              | file di inizializzazione del server MongoDB, nel file `./mongo/mongo.json` sono presenti le registrazioni per le applicazioni OIDC |
+| jwt                | semplice applicazione per eseguire una rapido test di autenticazione |
 
 All'inizio del corso ad ogni partecipante verranno assegnati i nomi macchina da utilizzare per le applicazioni e i loro certificati. es:
 * satosa-cp1.labwsgarr23.aai-test.garr.it per il proxy Satosa
