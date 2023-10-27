@@ -1,4 +1,4 @@
-# 08/11/2023 - Corso per la registrazione di un servizio OIDC in IDEM utilizzando il proxy Satosa-Saml2Spid su docker
+# 08/11/2023 - Corso per la registrazione di un servizio OIDC in IDEM utilizzando il proxy [Satosa-Saml2Spid](http.s://github.com/italia/Satosa-Saml2Spid) su docker
 Il framework OpenID Connect è utilizzato sempre più frequentemente nuove applicazioni e sta sostituendo lentamente il protocollo SAML.
 
 Al contrario il protocollo OIDC core non supporta nativamente i concetti di federazione e le specifiche OIDC Federation non hanno
@@ -41,8 +41,8 @@ flowchart TD
 Il docker compose avvierà i seguenti container:
 | Container        |   |
 |----------------- | - |
-| satosa-nginx     | proxy HTTPS verso i container di satosa-saml2spid e Gitlab |
-| satosa-saml2spid | Proxy SAML <-> OIDC core |
+| [satosa-nginx](#satosa-nginx)     | proxy HTTPS verso i container di satosa-saml2spid e Gitlab |
+| [satosa-saml2spid](#satosa-saml2spid) | Proxy SAML <-> OIDC core |
 | [satosa-mongo](#satosa-mongo)     | Archivio client e sessioni OIDC per satosa-saml2spid |
 | gitlab           | RP OIDC |
 
@@ -50,12 +50,12 @@ Il docker compose avvierà i seguenti container:
 Image: nginx:alpine
 
 Il container  `satosa-nginx` collega i seguenti volumi:
-* [satosa.conf](nginx/conf.d/satosa.conf) con le configurazioni del vhost per satosa-satml2spid
+* [satosa.conf](nginx/conf.d/satosa.conf) con le configurazioni del vhost per [satosa-saml2spid](#satosa-saml2spid)
 * [gitlab.conf](nginx/conf.d/gitlab.conf) con le configurazione del vhost per gitlab
 * [certs](nginx/certs) directory contenente i certificati di nginx
-* [static](nginx/static) directory contenente i file statici utilizzati per la discovery page di satosa-saml2spid
+* [static](nginx/static) directory contenente i file statici utilizzati per la discovery page di [satosa-saml2spid](#satosa-saml2spid)
 
-Il contaner satosa-nginx pubblica le porte `80` e `443` aperte su `0.0.0.0`.
+Il contaner [satosa-nginx](#satosa-nginx) pubblica le porte `80` e `443` aperte su `0.0.0.0`.
 
 Il container così strutturato non salva alcun dato in modo permanente e tutti i volumi vengono agganciati in sola lettura. Questo sistema è idoneao alla produzione in quanto il container non scrive alcun dato operativo ed i log vengono inviati al log driver di docker.
 
@@ -68,7 +68,7 @@ il container `satosa-saml2spid` collega i seguenti volumi:
 * [saml2_backend.yaml](satosa/plugins/backends/saml2_backend.yaml) file di configurazione per il backend SAML2 da personalizzare eventualmente
 * [oidcop_frontend.yaml](satosa/plugins/frontends/oidcop_frontend.yaml) file di configurazione per il frontend OIDC da personalizzare eventualmente
 
-Il container satosa-saml2spid non pubblica alcuna porta esternamente
+Il container [satosa-saml2spid](#satosa-saml2spid) non pubblica alcuna porta esternamente
 
 Tramite gli enviroments è possibile configurare tutte le informazioni necessarie alla presentazione dei metadata SAML2 e OIDC.
 Maggiori informazioni sono disponibili nella pagina dedicata al progetto [Satosa-Saml2Spid](http.s://github.com/italia/Satosa-Saml2Spid).
@@ -80,7 +80,7 @@ Il container così strutturato non salva alcun dato in modo permanente e tutti i
 Image: mongo
 
 Il container `satosa-mongo` collega i seguenti volumi:
-* [init-mongo.sh](mongo/init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh) contenente l'inizializzazione degli utenti e del database mongo OIDCOP per satosa-saml2spid
+* [init-mongo.sh](mongo/init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh) contenente l'inizializzazione degli utenti e del database mongo OIDCOP per [satosa-saml2spid](#satosa-saml2spid)
 * [mongo.json](mongo/mongo.json:/docker-entrypoint-initdb.d/mongo.json) contenente i client che verranno registrati automaticamente all'avvio del container
 
 Il container satosa-mongo non pubblica alcuna porta esternamente.
@@ -183,14 +183,14 @@ Entrare nella directory `nginx/conf.d`.
 ### Environment del file compose
 Aprire il file [docker-compose.yml](docker-compose.yml) con il proprio editor preferito per modificare gli environment e gli alias.
 
-Per il servizio satosa-saml2spid aggiorare l'url alle seguenti chiavi:
+Per il servizio [satosa-saml2spid](#satosa-saml2spid) aggiorare l'url alle seguenti chiavi:
 * `SATOSA_BASE` con la base url del proprio host satosa. ES: `SATOSA_BASE=https://satosa-cp1.labwsgarr23.aai-test.garr.it`
 * `SATOSA_DISCO_SRV` con l'url della propria discovery page. ES: `SATOSA_DISCO_SRV=https://satosa-cp1.labwsgarr23.aai-test.garr.it/static/disco.html`
 * `SATOSA_UNKNOW_ERROR_REDIRECT_PAGE` con l'indirizzo della pagina di errore generica `SATOSA_UNKNOW_ERROR_REDIRECT_PAGE=https://satosa-cp1.labwsgarr23.aai-test.garr.it/static/error_page.html`
 
-Per il servizio satosa-saml2spid aggiorare anche le informazioni dei metadati present alle righe 30-35, 40-45, 48-58.
+Per il servizio [satosa-saml2spid](#satosa-saml2spid) aggiorare anche le informazioni dei metadati present alle righe 30-35, 40-45, 48-58.
 
-Per il servizio satosa-nginx aggiornare il nome dell'alias con quello effettivamente utilizzato:
+Per il servizio [satosa-nginx](#satosa-nginx) aggiornare il nome dell'alias con quello effettivamente utilizzato:
 * riga 89, chiave `networks.satosa.aliases`. ES: `- satosa-cp1.labwsgarr23.aai-test.garr.it`
 
 Per il servizio gitlab aggiornare i seguenti dati:
