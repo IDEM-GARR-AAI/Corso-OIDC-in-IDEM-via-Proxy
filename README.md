@@ -43,7 +43,7 @@ Il docker compose avvierà i seguenti container:
 |----------------- | - |
 | satosa-nginx     | proxy HTTPS verso i container di satosa-saml2spid e Gitlab |
 | satosa-saml2spid | Proxy SAML <-> OIDC core |
-| satosa-mongo     | Archivio client e sessioni OIDC per satosa-saml2spid |
+| [satosa-mongo](#satosa-mongo)     | Archivio client e sessioni OIDC per satosa-saml2spid |
 | gitlab           | RP OIDC |
 
 ### satosa-nginx
@@ -132,29 +132,79 @@ Nelle procedure viene dato scontato che abbiate confidenza con la console di lin
 ### Importare i certificati di nginx
 Copiare i certificati consegnati (`privkey.pem` e `fullchain.pem`) nella directory [nginx/certs](nginx/certs).
 
-Chi esegue la procedura autonomamente può creare un certificato con i due alias e salvarli con gli stessi nomi o in alternativa può creare certificati separati basta ricordarsi di aggiornare le configurazioni dei virtualhost di [NGINX](nginx/conf.d). es:
+Chi esegue la procedura autonomamente può creare un certificato con i due alias e salvarli con gli stessi nomi o in alternativa si possono creare certificati separati aggiornando le configurazioni dei virtualhost di [NGINX](nginx/conf.d). es:
 * `satosa.key` - Chiave privata server satosa
 * `satosa.pem` - Certificato pubblico server satosa
 * `gitlab.key` - Chiave privata server GitLab
 * `gitlab.pem` - Certificato pubblico server GitLab 
 
-## Creare i certificati di satosa
+### Creare i certificati di satosa
+L'autenticazione SAML necessità di un certificato per la firma delle asserzioni, tale certificato normalmente può essere anche self signed. Nel seguente esempio utilizzeremo lo script per la generazione di un certificato self signed valido sia per la federazione IDEM che per la federazione SPID e CIE per le pubbliche amministrazione:
+
 * Entrare nella directory `./satosa/pki/`;
-* Modificare `build_spid_certs.sh` con i dati del proprio ente;
+* Aprire il file `build_spid_certs.sh` con il proprio editor preferito e modificare le seguenti righe:
+* * riga 4, `COMMON_NAME=#{identificativo}` aggiornare con il nome breve o acronimo del proprio ente
+* * riga 5, `LOCALITY_NAME=#{città}` aggiornare con la città della sede di riferimento ES: `Roma`
+* * riga 6, `ORGANIZATION_IDENTIFIER=#{codice ipa}}` aggiornare con il codice IPA del proprio ente es: `PA:IT-ispra_rm`
+* * riga 7, `ORGANIZATION_NAME=#{nome ente}` aggiornare con il completo dell'ente
+* * riga 9, `URI=#{indirizzo}` aggiornare con l'url completo del proprio service provider es: `satosa-cp12.labwsgarr23.aai-test.garr.it`
+* * salvare e chiudere il file
 * Generare i certificati self signed eseguendo lo script `./build_spid_certs.sh`.
 
-## Preparare i dati di mongo
-* Entrare nella directory `./mongo/`;
-* Modificare il file `mongo.json` ed aggiornare i nomi degli host con quelli assegnati.
+Lo script genererà nella directory corrente i file `cert.pem` e `privkey.pem`. Possono essere importati anche certificati preesistenti a patto che vengano rinominati allo stesso modo.
 
-## Preparazione del file host
-* Modificare il file di host `/etc/hosts` ed aggiungere gli host per il corso all'indirizzo di localhost, es:
+### Preparare i dati da importare su MongoDB
+All'avvio del container [satosa-mongo](#satosa-mongo) verrà inizializzato il database (di default `oidcop`) e verranno importati i dati contenuti nel file [mongo.json](mongo/mongo.json).
+
+Nel file [mongo.json](mongo/mongo.json) sono presenti i dati di configurazione del client Python [JWT](jwt) presente nel reposytory e i dati di esemprio per la configurazione del server gitlab.
+Prima di avviare il compose sarà necessario aggiornare il nome hosrt per il server gitlab come segue:
+* Entrare nella directory `./mongo/`;
+* Aprire il file `mongo.json` con il proprio editor preferito e modificare le seguenti righe:
+* * Aggiornare il nome host per il redirect url. ES: `"redirect_uris": [["https://gitlab-cp1.labwsgarr23.aai-test.garr.it/users/auth/openid_connect/callback", {}]],`
+* * Aggiornare il nome host per il logout. ES: `"post_logout_redirect_uris": [["https://gitlab-cp1.labwsgarr23.aai-test.garr.it", null]],`
+* * salvare e chiudere il file
+
+### Preparazione del file host
+* Aprire con diritti amministrativi il file `/etc/hosts` ed aggiungere gli host per il corso all'indirizzo di localhost, es:
 ```
 127.0.1.1       localhost satosa-cp1.labwsgarr23.aai-test.garr.it gitlab-cp1.labwsgarr23.aai-test.garr.it
 ```
+### Aggiornare i virtual host di NGINX
+Entrare nella directory `nginx/conf.d`.
+* Aprire il file `satosa.conf` con il proprio editor preferito e modificare le seguenti righe:
+* riga 9, aggiornare il server name con il proprio nome host. ES: `  server_name satosa-cp1.labwsgarr23.aai-test.garr.it;`
+* riga 14, aggiornare il server name con il proprio nome host. ES: `  server_name satosa-cp1.labwsgarr23.aai-test.garr.it;`
+* salvare e chiudere
+* Aprire il file `gitlab.conf` con il proprio editor preferito e modificare le seguenti righe:
+* riga 8, aggiornare il server name con il proprio nome host. ES: `  server_name gitlab-cp1.labwsgarr23.aai-test.garr.it;`
+* riga 13, aggiornare il server name con il proprio nome host. ES: `  server_name gitlab-cp1.labwsgarr23.aai-test.garr.it;`
+* salvare e chiudere
 
-## Compose e verifica
-* Modificare nel file `docker-compose.yml` le voci descrittive servizio;
+### Environment del file compose
+Aprire il file [docker-compose.yml](docker-compose.yml) con il proprio editor preferito per modificare gli environment e gli alias.
+
+Per il servizio satosa-saml2spid aggiorare l'url alle seguenti chiavi:
+* `SATOSA_BASE` con la base url del proprio host satosa. ES: `SATOSA_BASE=https://satosa-cp1.labwsgarr23.aai-test.garr.it`
+* `SATOSA_DISCO_SRV` con l'url della propria discovery page. ES: `SATOSA_DISCO_SRV=https://satosa-cp1.labwsgarr23.aai-test.garr.it/static/disco.html`
+* `SATOSA_UNKNOW_ERROR_REDIRECT_PAGE` con l'indirizzo della pagina di errore generica `SATOSA_UNKNOW_ERROR_REDIRECT_PAGE=https://satosa-cp1.labwsgarr23.aai-test.garr.it/static/error_page.html`
+
+Per il servizio satosa-saml2spid aggiorare anche le informazioni dei metadati present alle righe 30-35, 40-45, 48-58.
+
+Per il servizio satosa-nginx aggiornare il nome dell'alias con quello effettivamente utilizzato:
+* riga 89, chiave `networks.satosa.aliases`. ES: `- satosa-cp1.labwsgarr23.aai-test.garr.it`
+
+Per il servizio gitlab aggiornare i seguenti dati:
+* riga 108, `issuer` aggiornare l'url del server satosa. ES: `issuer: "https://satosa-cp1.labwsgarr23.aai-test.garr.it",`
+* riga 118, `redirect_uri`, aggiornare l'url del server gitlab. ES: `redirect_uri: "https://gitlab-cp1.labwsgarr23.aai-test.garr.it/users/auth/openid_connect/callback",`
+* riga 133,  chiave `networks.satosa.aliases`, aggiornare l'url dell alias. ES: `- gitlab-cp1.labwsgarr23.aai-test.garr.it`
+
+In caso di un servizio in produzione sarà necessario aggiornare anche i seguenti dati:
+* passowrd di mongo alle righe 10 e 38
+* `SATOSA_SALT` alla riga 46
+* `SATOSA_USER_ID_HASH_SALT` alla riga 60
+* Aggiornare secret e identifier del client OIDC alle righe 116, 117 ed i loro corrispettivi nel file [json di mongo](mongo/mongo.json)
+
+### Compose e verifica
 * Eseguire l'infrastruttura di docker con il comando `sudo docker compose up`;
 * Verificare l'attività dei servizi e i dati registrati dei metadata dai seguenti indirizzi:
 * * https://satosa-cp1.labwsgarr23.aai-test.garr.it/Saml2/metadata (metadata SP IDEM)
@@ -166,7 +216,7 @@ Chi esegue la procedura autonomamente può creare un certificato con i due alias
 
 *Ricordarsi di modificare il dominio `idem.it` con il proprio dominio*
 
-## Registrare l'SP nella federazione
+### Registrare l'SP nella federazione
 * Collegarsi al sito registry.idem.garr.it
 * Autenticarsi con le proprie credenziali IDEM
 * Cliccare nel menu di testa alle voci `Register` e `Service Provider`
@@ -174,7 +224,7 @@ Chi esegue la procedura autonomamente può creare un certificato con i due alias
 * Selezionare la federazione `WSGARR23`
 * Far confermare la registrazione dai docenti presenti in sala
 
-## Eseguire un accesso su gitlab
+### Eseguire un accesso su gitlab
 * Collegarsi al proprio host GitLab es: `gitlab-cp1.labwsgarr23.aai-test.garr.it`
 * Cliccare sul bottone `WSGARR23` nella sezione `sign in with`
 * Selezionare `IDEM` nella discovery page
@@ -182,7 +232,7 @@ Chi esegue la procedura autonomamente può creare un certificato con i due alias
 * * user: test1
 * * pass: test1
 
-## In caso di errori eseguire una autenticazione di test con JWT e verificare i dati ricevuti
+### In caso di errori eseguire una autenticazione di test con JWT e verificare i dati ricevuti
 * Accedere alla directory `./jwt/`
 * Modificare il file `satosa.json` ed aggiornare il dominio dell'issuer
 * Creare il virtual env python con il comando `python -m venv ./env`
