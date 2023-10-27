@@ -57,6 +57,8 @@ Il container  `satosa-nginx` collega i seguenti volumi:
 
 Il contaner satosa-nginx pubblica le porte `80` e `443` aperte su `0.0.0.0`.
 
+Il container così strutturato non salva alcun dato in modo permanente e tutti i volumi vengono agganciati in sola lettura. Questo sistema è idoneao alla produzione in quanto il container non scrive alcun dato operativo ed i log vengono inviati al log driver di docker.
+
 ### satosa-saml2spid
 Image: ghcr.io/italia/satosa-saml2spid:latest
 
@@ -71,6 +73,9 @@ Il container satosa-saml2spid non pubblica alcuna porta esternamente
 Tramite gli enviroments è possibile configurare tutte le informazioni necessarie alla presentazione dei metadata SAML2 e OIDC.
 Maggiori informazioni sono disponibili nella pagina dedicata al progetto [Satosa-Saml2Spid](http.s://github.com/italia/Satosa-Saml2Spid).
 
+Il container così strutturato non salva alcun dato in modo permanente e tutti i volumi vengono agganciati in sola lettura. Questo sistema è idoneao alla produzione in quanto il container non scrive alcun dato operativo ed i log vengono inviati al log driver di docker.
+
+
 ### satosa-mongo
 Image: mongo
 
@@ -82,6 +87,14 @@ Il container satosa-mongo non pubblica alcuna porta esternamente.
 
 Tramite gli environment `MONGO_INITDB_DATABASE`, `MONGO_INITDB_ROOT_USERNAME` e `MONGO_INITDB_ROOT_PASSWORD` viene definito il db da inizializzare le credenziali dell'utente amministratore.
 
+Il container così strutturato non salva nessun dato in modo permanente.
+Questa configurazione può essere adatta alla produzione a patto che il numero dei client sia limitato (i client vengono reinseriti ad ogni inizializzazione) e che sia accettabile perdere le sessioni correnti in caso di re-inizializazione del container.
+In caso contrario sarà necessario sarà necessario creare un volume (locale o statico) da collegare alla directory - `/data/db` del container. ES:
+```
+volumes:
+  - ./mongo/mongodata:/data/db
+```
+
 ### gitlab
 Image: 'gitlab/gitlab-ce:latest'
 
@@ -90,8 +103,36 @@ Il container `gitlab` non collega alcun volume.
 Tramite l'environment `GITLAB_OMNIBUS_CONFIG` viene definito il nome host a cui deve rispondere il server gitlab oltre la configurazione dell'autenticazione OIDC.
 Maggiori informazioni sono disponibili nella documentazione [GitLAB](https://docs.gitlab.com/)
 
-## Importare i certificati di nginx
-Entrare nella directory `./nginx/certs/` e salvare i certificati per i virtual host Satosa e GitLab con i seguenti nomi:
+Questa configurazione non è adatta alla produzione in quanto non salva alcun dato in modo permanente mentre i dati del server git lo sono per definizione. Per rendere permanenti i dati di GitLab sarà necessario montare un volume (logico o statico) alla directory `/var/opt/gitlab`, un volume per la conservazione dei log su `/var/log/gitlab` ed un volume per le eventuali configurazioni manuali necessarie `/etc/gitlab`. ES:
+```
+volumes:
+  - '$GITLAB_HOME/config:/etc/gitlab'
+  - '$GITLAB_HOME/logs:/var/log/gitlab'
+  - '$GITLAB_HOME/data:/var/opt/gitlab'
+```
+
+## Inizializzazione del sistema di test
+Le procedure di seguito riportate servono per configurare, creare e rendere operativa l'infrastruttura proposta negli obiettivi formativi ossia un server GitLab che si autentica su IDEM con il protocollo OIDC sfruttando un satosa Proxy.
+
+I partecipanti al corso riceveranno al loro arrivo i nomi DNS dei server che dovranno utilizzare durante il corso. ES:
+* satosa-cp12.labwsgarr23.aai-test.garr.it per il server satosa
+* gitlab-cp12.labwsgarr23.aai-test.garr.it per il server gitlab
+
+Insieme al nome DNS verrà consegnato anche un certificato valido per entrambi i nomi macchina. ES:
+* privkey.pem con la chiave privata
+* fullchain.pem con la chiave pubblica con incluse le chiavi dei firmatari
+
+Tutte le configurazioni presenti nel repository fanno riferimento ai nomi `satosa-cp12.labwsgarr23.aai-test.garr.it` e `gitlab-cp12.labwsgarr23.aai-test.garr.it` ed andranno aggiornate di conseguenza.
+Per provare il proxy esternamente al corso sarà necessario utilizzare nomi DNS differenti e generare certificati validi adatti.
+
+### Prerequisiti
+In tutte le procedure viene considerato che si sta lavorando su un computer locale con una versione di linux recente con installato Docker, Docker compose e python3.x.
+Nelle procedure viene dato scontato che abbiate confidenza con la console di linux e con gli editor testuali.
+
+### Importare i certificati di nginx
+Copiare i certificati consegnati (`privkey.pem` e `fullchain.pem`) nella directory [nginx/certs](nginx/certs).
+
+Chi esegue la procedura autonomamente può creare un certificato con i due alias e salvarli con gli stessi nomi o in alternativa può creare certificati separati basta ricordarsi di aggiornare le configurazioni dei virtualhost di [NGINX](nginx/conf.d). es:
 * `satosa.key` - Chiave privata server satosa
 * `satosa.pem` - Certificato pubblico server satosa
 * `gitlab.key` - Chiave privata server GitLab
