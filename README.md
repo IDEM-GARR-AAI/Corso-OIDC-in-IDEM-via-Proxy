@@ -212,9 +212,9 @@ In caso di un servizio in produzione sarà necessario aggiornare anche i seguent
 * * https://satosa-cp1.labwsgarr23.aai-test.garr.it/cieSaml2/metadata  (metadata SP CIE)
 * * https://satosa-cp1.labwsgarr23.aai-test.garr.it/Saml2IDP/metadata (metadata dell'IDP per registrare i propri SP)
 * * https://satosa-cp1.labwsgarr23.aai-test.garr.it/.well-known/openid-configuration (metadata OIDC)
-* * https://wiki.idem.it (indirizzo wiki.js)
+* * https://gitlab-cp1.labwsgarr23.aai-test.garr.it (indirizzo del servizio GitLab)
 
-*Ricordarsi di modificare il dominio `idem.it` con il proprio dominio*
+*Ricordarsi di modificare il nome host con quello impostato.
 
 ### Registrare l'SP nella federazione
 * Collegarsi al sito registry.idem.garr.it
