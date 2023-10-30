@@ -172,10 +172,12 @@ Prima di avviare il compose sarà necessario aggiornare il nome hosrt per il ser
 ### Aggiornare i virtual host di NGINX
 Entrare nella directory `nginx/conf.d`.
 * Aprire il file `satosa.conf` con il proprio editor preferito e modificare le seguenti righe:
+* riga 3, aggiornare il server name con il proprio nome host. ES: `server satosa-cp1.labwsgarr23.aai-test.garr.it:443;`
 * riga 9, aggiornare il server name con il proprio nome host. ES: `server_name satosa-cp1.labwsgarr23.aai-test.garr.it;`
 * riga 14, aggiornare il server name con il proprio nome host. ES: `server_name satosa-cp1.labwsgarr23.aai-test.garr.it;`
 * salvare e chiudere
 * Aprire il file `gitlab.conf` con il proprio editor preferito e modificare le seguenti righe:
+* riga 2, aggiornare il server name con il proprio nome host. ES: `server gitlab-cp1.labwsgarr23.aai-test.garr.it:443;`
 * riga 8, aggiornare il server name con il proprio nome host. ES: `server_name gitlab-cp1.labwsgarr23.aai-test.garr.it;`
 * riga 13, aggiornare il server name con il proprio nome host. ES: `server_name gitlab-cp1.labwsgarr23.aai-test.garr.it;`
 * salvare e chiudere
