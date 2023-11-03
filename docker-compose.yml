@@ -90,7 +90,6 @@ services:
 
   gitlab:
     image: 'gitlab/gitlab-ee:latest'
-    restart: always
     hostname: 'gitlab-cp1.labwsgarr23.aai-test.garr.it'
     environment:
       GITLAB_OMNIBUS_CONFIG: |
