@@ -1,4 +1,4 @@
-# 08/11/2023 - Corso per la registrazione di un servizio OIDC in IDEM utilizzando il proxy [Satosa-Saml2Spid](http.s://github.com/italia/Satosa-Saml2Spid) su docker
+a 08/11/2023 - Corso per la registrazione di un servizio OIDC in IDEM utilizzando il proxy [Satosa-Saml2Spid](http.s://github.com/italia/Satosa-Saml2Spid) su docker
 Il framework OpenID Connect è utilizzato sempre più frequentemente nuove applicazioni e sta sostituendo lentamente il protocollo SAML.
 
 Al contrario il protocollo OIDC core non supporta nativamente i concetti di federazione e le specifiche OIDC Federation non hanno
@@ -152,6 +152,9 @@ L'autenticazione SAML necessità di un certificato per la firma delle asserzioni
 * Generare i certificati self signed eseguendo lo script `./build_spid_certs.sh`.
 
 Lo script genererà nella directory corrente i file `cert.pem` e `privkey.pem`. Possono essere importati anche certificati preesistenti a patto che vengano rinominati allo stesso modo.
+
+### Creare la directory per ospitare i metadata degli eventuali Service Provider
+[Satosa-Saml2Spid](https://github.com/italia/Satosa-Saml2Spid) di default cerca i metadata nella directory `metadata/sp` che può essere vuota ma deve esistere. Per creare la directory esegiore il comando `mkdir satosa/metadata/sp` dalla directory principale del progetto.
 
 ### Preparare i dati da importare su MongoDB
 All'avvio del container [satosa-mongo](#satosa-mongo) verrà inizializzato il database (di default `oidcop`) e verranno importati i dati contenuti nel file [mongo.json](mongo/mongo.json).
